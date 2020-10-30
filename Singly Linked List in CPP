@@ -1,0 +1,225 @@
+//ANISUL ISLAM 
+//BS SOFTWARE ENGINEERING
+#include<iostream>
+using namespace std;
+class Node {
+public:
+	int key;
+	int data;
+	Node* next;
+	Node() {
+		key = 0;
+		data = 0;
+		next = NULL;
+	}
+	Node(int k, int d) {
+		key = k;
+		data = d;
+	}
+};
+class SinglyLinkedList {
+public:
+	Node* head;
+	SinglyLinkedList() {
+		head = NULL;
+	}
+	SinglyLinkedList(Node *n) {
+		head = n;
+	}
+	Node* nodeExists(int k) {
+		Node* temp = NULL;
+		Node* ptr = head;
+		while (ptr != NULL) {
+			if (ptr->key == k) {
+				temp = ptr;
+
+			}
+			ptr = ptr->next;
+		}
+		return temp;
+	}
+	//append node
+	void appendNode(Node *n) {
+		if (nodeExists(n->key)!= NULL) {
+			cout << "node already exist with the value...:" << n->key << endl;
+		}
+		else {
+			if (head == NULL) {
+				head = n;
+				cout << "node appended..." << endl;
+
+			}
+			else {
+				Node* ptr = head;
+				while (ptr->next != NULL) {
+					ptr = ptr->next;
+				}
+				ptr->next = n;
+				cout << "node appended..." << endl;
+			}
+		}
+	}
+	//prepend node
+	void prependNode(Node* n) {
+		if (nodeExists(n->key) != NULL) {
+			cout << "node already exist with the value  :" << n->key << endl;
+		}
+		else {
+			n->next = head;
+			head = n;
+			cout << "node prepended..." << endl;
+		}
+	}
+	//insert note
+	void insertNode(int k, Node* n) {
+		Node* ptr = nodeExists(k);
+		if (ptr == NULL) {
+			cout << "No node exists with key value of ..." << k << endl;
+		}
+		else {
+			if(nodeExists(n->key)!=NULL){
+				cout << "node already exits with the key value of..." << n->key << endl;
+
+		}
+			else {
+				n->next = ptr->next;
+				ptr->next = n;
+				cout << "node inserted..." << endl;
+
+			}
+		}
+	}
+	//delete node
+	void deleteNode(int k)
+	{
+		if (head == NULL) {
+			cout << "singly linked list already empty, can't delete..." << endl;
+
+		}
+		else if (head != NULL) {
+			if (head->key == k) {
+				head = head->next;
+				cout << "Node unlinked with key value..." << endl;
+
+			}
+			else {
+				Node* temp = NULL;
+				Node* preptr = head;
+				Node* currentptr = head->next;
+				while (currentptr != NULL) {
+					if (currentptr->key == k) {
+						temp = currentptr;
+						currentptr = NULL;
+					}
+					else {
+						preptr = preptr->next;
+						currentptr = currentptr->next;
+					}
+
+				}
+				if (temp != NULL) {
+					preptr->next = temp->next;
+					cout << "Node unlinked with keys value :" << k<<"..." << endl;
+
+				}
+				else {
+					cout << "node doesn't exit with the key :" << k << "..." << endl;
+				}
+			}
+		}
+	}
+	//update node
+	void updateNode(int k, int d) {
+		Node* ptr = nodeExists(k);
+		if (ptr != NULL) {
+			ptr->data = d;
+			cout << "node data updated successfully..." << endl;
+
+		}
+		else {
+			cout << "node doesn't exist with key value of :" << k << "..." << endl;
+		}
+	}
+	void displayNode() {
+		if (head == NULL) {
+			cout << "no nodes in singly linked list..." << endl;
+		}
+		else {
+			cout << endl << "singly linked list value : ";
+			Node* temp = head;
+			while (temp != NULL) {
+				cout << "(" << temp->key << "," << temp->data << ") --->";
+				temp = temp->next;
+			}
+		}
+	}
+};
+int main() {
+
+	SinglyLinkedList is;
+	int option;
+	int key1, k1, data1;
+	do {
+		cout << "select option" << endl;
+		cout << "1. appendNode \n 2. prependNode \n 3. insertNode \n 4. deleteNode \n 5. updateNode \n 6. displayNode  \n 7. clean display \n 0. Exit" << endl;
+		cin >> option;
+		Node* n1 = new Node();
+		switch (option) {
+
+		case 0:
+			break;
+		case 1:
+			cout << "appened node \n enter key and data" << endl;
+			cin >> key1;
+			cin >> data1;
+			n1->key = key1;
+			n1->data = data1;
+			is.appendNode(n1);
+			break;
+		case 2:
+			cout << "prepend node \n enter key and data\n";
+			cin >> key1;
+			cin >> data1;
+			n1->key = key1;
+			n1->data = data1;
+			
+			is.prependNode(n1);
+			break;
+		case 3:
+			cout << "insert node\n enter key\n";
+			cin >> k1;
+			cout << "enter key and data of new node first:";
+			cin >> key1;
+			cin >> data1;
+			n1->key = key1;
+			n1->data = data1;
+			is.insertNode(k1, n1);
+			break;
+		case 4:
+			cout << "delete node\n ebter key of the node to be deleted:" << endl;
+			cin >> k1;
+			is.deleteNode(k1);
+			break;
+
+
+		case 5:
+			cout << "update node\n enter key and new data to be updated" << endl;
+			cin >> key1;
+			cin >> data1;
+			is.updateNode(key1, data1);
+			break;
+		case 6:
+			is.displayNode();
+			break;
+		case 7:
+			system("cls");
+			break;
+		default:
+			cout << "enter proper option..." << endl;
+
+		}
+
+	} while (option != 0);
+		
+	return 0;
+}
